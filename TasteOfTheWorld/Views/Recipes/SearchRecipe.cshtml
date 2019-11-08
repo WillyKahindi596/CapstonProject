@@ -1,0 +1,20 @@
+﻿@model TasteOfTheWorld.Models.ViewModel.RecipeSearchViewModel
+
+
+
+@using (Html.BeginForm("Index", "Recipes", FormMethod.Post, new { @class = "SearchForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Search Recipe</h4>
+        @Html.DropDownListFor(model => model.Country_Id, ViewBag.AllCountries as SelectList, "Any Country", new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.Continent_Id, ViewBag.AllContinent as SelectList, "Any Continent", new { @class = "form-control" })
+        @Html.EditorFor(model => model.Search_KeyWord, new { htmlAttributes = new { @class = "form-control" } })
+        <input type="submit" value="Search" class="btn btn-default" />
+
+    </div>
+}
+<hr />
+
+

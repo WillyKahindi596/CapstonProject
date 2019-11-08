@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity;
+@model TasteOfTheWorld.Models.Chef
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Chef</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.First_Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.First_Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Last_Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Last_Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+        </dl>
+    </div>
+
+    <div>
+        <h4> My Recipes </h4>
+        <table>
+            @foreach (var recipe in Model.Recipes)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details", "Recipes", new { id=recipe.Recipe_Id})"> <img src="@recipe.Image_URL" class="DishImage" /></a>
+                    </td>
+                    <td>
+                        @Html.ActionLink(recipe.Name_of_Dish,"Details", "Recipes", new { id=recipe.Recipe_Id})
+
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+    </div>
+
+        <p>
+            @if (User.Identity.GetUserId() == Model.Chef_Id)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Chef_Id })
+            }
+
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+</body>
+</html>

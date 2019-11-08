@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CapstoneProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chef">
+    <Key>
+      <PropertyRef Name="Chef_Id" />
+    </Key>
+    <Property Name="Chef_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="First_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Last_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Recipes" Relationship="CapstoneProjectModel.FK__Recipe__Chef_Id__412EB0B6" FromRole="Chef" ToRole="Recipe" />
+  </EntityType>
+  <EntityContainer Name="CapstoneProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chefs" EntityType="Self.Chef" />
+    <EntitySet Name="Countries" EntityType="CapstoneProjectModel.Country" />
+    <EntitySet Name="Recipes" EntityType="CapstoneProjectModel.Recipe" />
+    <AssociationSet Name="FK__Recipe__Chef_Id__412EB0B6" Association="CapstoneProjectModel.FK__Recipe__Chef_Id__412EB0B6">
+      <End Role="Chef" EntitySet="Chefs" />
+      <End Role="Recipe" EntitySet="Recipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipe__Country___4222D4EF" Association="CapstoneProjectModel.FK__Recipe__Country___4222D4EF">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="Recipe" EntitySet="Recipes" />
+    </AssociationSet>
+    <EntitySet Name="Continents" EntityType="CapstoneProjectModel.Continent" />
+    <AssociationSet Name="FK__Country__Contine__5AEE82B9" Association="CapstoneProjectModel.FK__Country__Contine__5AEE82B9">
+      <End Role="Continent" EntitySet="Continents" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Country_Id" />
+    </Key>
+    <Property Name="Country_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country_Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Continent_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Recipes" Relationship="CapstoneProjectModel.FK__Recipe__Country___4222D4EF" FromRole="Country" ToRole="Recipe" />
+    <NavigationProperty Name="Continent" Relationship="CapstoneProjectModel.FK__Country__Contine__5AEE82B9" FromRole="Country" ToRole="Continent" />
+  </EntityType>
+  <EntityType Name="Recipe">
+    <Key>
+      <PropertyRef Name="Recipe_Id" />
+    </Key>
+    <Property Name="Recipe_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_of_Dish" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Dish_Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Image_URL" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Ingredients" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Directions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Chef_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Country_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Chef" Relationship="CapstoneProjectModel.FK__Recipe__Chef_Id__412EB0B6" FromRole="Recipe" ToRole="Chef" />
+    <NavigationProperty Name="Country" Relationship="CapstoneProjectModel.FK__Recipe__Country___4222D4EF" FromRole="Recipe" ToRole="Country" />
+  </EntityType>
+  <Association Name="FK__Recipe__Chef_Id__412EB0B6">
+    <End Type="CapstoneProjectModel.Chef" Role="Chef" Multiplicity="1" />
+    <End Type="CapstoneProjectModel.Recipe" Role="Recipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chef">
+        <PropertyRef Name="Chef_Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="Chef_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipe__Country___4222D4EF">
+    <End Type="CapstoneProjectModel.Country" Role="Country" Multiplicity="1" />
+    <End Type="CapstoneProjectModel.Recipe" Role="Recipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Country_Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="Country_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Continent">
+    <Key>
+      <PropertyRef Name="Continent_Id" />
+    </Key>
+    <Property Name="Continent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Continent_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Countries" Relationship="CapstoneProjectModel.FK__Country__Contine__5AEE82B9" FromRole="Continent" ToRole="Country" />
+  </EntityType>
+  <Association Name="FK__Country__Contine__5AEE82B9">
+    <End Type="CapstoneProjectModel.Continent" Role="Continent" Multiplicity="1" />
+    <End Type="CapstoneProjectModel.Country" Role="Country" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Continent">
+        <PropertyRef Name="Continent_Id" />
+      </Principal>
+      <Dependent Role="Country">
+        <PropertyRef Name="Continent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

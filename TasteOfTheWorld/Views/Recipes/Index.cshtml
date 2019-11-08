@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TasteOfTheWorld.Models.Recipe>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @Html.Action("SearchRecipe", "Recipes")
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table recipeList">
+        
+
+        @foreach (var item in Model)
+        {
+    <tr onclick="goToRecipe(@item.Recipe_Id)">
+        <td>
+            <div class="ImageHolder">
+                <img src="@item.Image_URL" class="DishImage" />
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name_of_Dish)
+        </td>
+        <td>
+            @(item.Dish_Description.Substring(0, 50))...
+        </td>
+
+        <td>
+            @item.Chef.First_Name,@item.Chef.Last_Name
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country.Continent.Continent_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country.Country_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Recipe", "Details", new { id = item.Recipe_Id }) |
+        </td>
+    </tr>
+        }
+
+    </table>
+    @section scripts{
+        <script type="text/javascript">
+            function goToRecipe(recipeId) {
+                var Url = "/recipes/details/" + recipeId;
+                location.href = Url;
+
+            }
+        </script>
+        }
+

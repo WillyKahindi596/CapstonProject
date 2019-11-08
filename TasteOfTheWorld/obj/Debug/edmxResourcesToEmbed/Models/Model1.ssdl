@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CapstoneProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Chef">
+    <Key>
+      <PropertyRef Name="Chef_Id" />
+    </Key>
+    <Property Name="Chef_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="First_Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Last_Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Continent">
+    <Key>
+      <PropertyRef Name="Continent_Id" />
+    </Key>
+    <Property Name="Continent_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Continent_Name" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Country_Id" />
+    </Key>
+    <Property Name="Country_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country_Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Continent_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recipe">
+    <Key>
+      <PropertyRef Name="Recipe_Id" />
+    </Key>
+    <Property Name="Recipe_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_of_Dish" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Dish_Description" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Image_URL" Type="varchar" MaxLength="1000" />
+    <Property Name="Ingredients" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Directions" Type="varchar(max)" Nullable="false" />
+    <Property Name="Chef_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Country_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Country__Contine__5AEE82B9">
+    <End Role="Continent" Type="Self.Continent" Multiplicity="1" />
+    <End Role="Country" Type="Self.Country" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Continent">
+        <PropertyRef Name="Continent_Id" />
+      </Principal>
+      <Dependent Role="Country">
+        <PropertyRef Name="Continent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipe__Chef_Id__412EB0B6">
+    <End Role="Chef" Type="Self.Chef" Multiplicity="1" />
+    <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chef">
+        <PropertyRef Name="Chef_Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="Chef_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipe__Country___4222D4EF">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Country_Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="Country_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CapstoneProjectModelStoreContainer">
+    <EntitySet Name="Chef" EntityType="Self.Chef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Continent" EntityType="Self.Continent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Country__Contine__5AEE82B9" Association="Self.FK__Country__Contine__5AEE82B9">
+      <End Role="Continent" EntitySet="Continent" />
+      <End Role="Country" EntitySet="Country" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipe__Chef_Id__412EB0B6" Association="Self.FK__Recipe__Chef_Id__412EB0B6">
+      <End Role="Chef" EntitySet="Chef" />
+      <End Role="Recipe" EntitySet="Recipe" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipe__Country___4222D4EF" Association="Self.FK__Recipe__Country___4222D4EF">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Recipe" EntitySet="Recipe" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

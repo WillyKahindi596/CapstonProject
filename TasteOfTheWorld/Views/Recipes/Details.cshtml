@@ -1,0 +1,34 @@
+﻿@model TasteOfTheWorld.Models.Recipe
+
+    <div class="RecipeContainer">
+        <h2>@Model.Name_of_Dish</h2>
+        <img src="@Model.Image_URL" class="ExpanIMG" />
+        <div class="RecipeCountry">
+            @Html.DisplayFor(model => model.Country.Country_Name)
+            (@Html.DisplayFor(model => model.Country.Continent.Continent_Name))
+
+        </div>
+        <div class="RecipeDescription">
+            <div class="RecipeHeader">Description:</div>
+            <div class="MultiLineText">@Html.DisplayFor(model => model.Dish_Description)</div>
+        </div>
+        <div class="RecipeDescription">
+            <div class="RecipeHeader">Ingredients:</div>
+            <div class="MultiLineText">@Html.DisplayFor(model => model.Ingredients)</div>
+        </div>
+        <div class="RecipeDescription">
+            <div class="RecipeHeader">Direction:</div>
+            <div class="MultiLineText">@Html.DisplayFor(model => model.Directions)</div>
+        </div>
+
+        <div class="RecipeChef">
+            Recipe By:
+            @Model.Chef.First_Name @Model.Chef.Last_Name
+
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+
+    </div>
+  

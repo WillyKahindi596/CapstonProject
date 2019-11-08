@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CapstoneProjectModelStoreContainer" CdmEntityContainer="CapstoneProjectEntities">
+    <EntitySetMapping Name="Chefs">
+      <EntityTypeMapping TypeName="CapstoneProjectModel.Chef">
+        <MappingFragment StoreEntitySet="Chef">
+          <ScalarProperty Name="Chef_Id" ColumnName="Chef_Id" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="CapstoneProjectModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="Continent_Id" ColumnName="Continent_Id" />
+          <ScalarProperty Name="Country_Name" ColumnName="Country_Name" />
+          <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipes">
+      <EntityTypeMapping TypeName="CapstoneProjectModel.Recipe">
+        <MappingFragment StoreEntitySet="Recipe">
+          <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+          <ScalarProperty Name="Chef_Id" ColumnName="Chef_Id" />
+          <ScalarProperty Name="Directions" ColumnName="Directions" />
+          <ScalarProperty Name="Ingredients" ColumnName="Ingredients" />
+          <ScalarProperty Name="Image_URL" ColumnName="Image_URL" />
+          <ScalarProperty Name="Dish_Description" ColumnName="Dish_Description" />
+          <ScalarProperty Name="Name_of_Dish" ColumnName="Name_of_Dish" />
+          <ScalarProperty Name="Recipe_Id" ColumnName="Recipe_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Continents">
+      <EntityTypeMapping TypeName="CapstoneProjectModel.Continent">
+        <MappingFragment StoreEntitySet="Continent">
+          <ScalarProperty Name="Continent_Name" ColumnName="Continent_Name" />
+          <ScalarProperty Name="Continent_Id" ColumnName="Continent_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
